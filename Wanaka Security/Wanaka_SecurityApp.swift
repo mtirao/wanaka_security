@@ -10,7 +10,7 @@ import SwiftData
 
 @main
 struct Wanaka_SecurityApp: App {
-    var sharedModelContainer: ModelContainer = {
+    /*var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
         ])
@@ -21,12 +21,12 @@ struct Wanaka_SecurityApp: App {
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
-    }()
+    }()*/
 
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(sharedModelContainer)
+        //.modelContainer(sharedModelContainer)
     }
 }

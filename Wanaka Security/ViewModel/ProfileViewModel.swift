@@ -1,14 +1,23 @@
+//
+//  ProfileViewModel.swift
+//  Wanaka Security
+//
+//  Created by Marcos Tirao on 16/06/2025.
+//
+
+
 import SwiftUI
 
 
 @MainActor
 @Observable class ProfileViewModel {
     
-    var isNeededAuthentication: Bool = false
+    var isNeededAuthentication: Bool = true
     var errorText: String = " "
     var profile: Profile? = nil
     var isLoading = false
-    var token: String?
+    
+    private(set) var token: String?
     
     private let repository: any ProfileRepositoryProtocol
     
@@ -32,7 +41,12 @@ import SwiftUI
         guard validate(authentication: authentication) else {
             return
         }
+        guard let jwtToken = try? await repository.login(auth: authentication) else {
+            errorText = "Invalid login or password"
+            return
+        }
         
+        token = jwtToken.accessToken
         isNeededAuthentication = false
     }
 }

@@ -1,5 +1,13 @@
 //
 //  ApiProfile.swift
+//  Wanaka Security
+//
+//  Created by Marcos Tirao on 22/06/2025.
+//
+
+
+//
+//  ApiProfile.swift
 //  SmartList
 //
 //  Created by Marcos Tirao on 03/09/2024.
@@ -10,7 +18,7 @@ import Foundation
 enum ApiProfile: Api {
     
     case fetchProfile(profile: String)
-    case login(auth: Authentication)
+    case login
     
     var server: String {
         return "http://localhost:3000"
@@ -36,10 +44,8 @@ enum ApiProfile: Api {
     
     var body: Data? {
         switch self {
-        case .login(let body):
-            let jsonBody = try? JSONEncoder().encode(body)
-            print(String(data: jsonBody!, encoding: .utf8) ?? "")
-            return jsonBody
+        case .login:
+            return nil as Data?
         default:
             return nil as Data?
         }

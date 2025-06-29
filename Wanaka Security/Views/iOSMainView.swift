@@ -8,8 +8,26 @@
 import SwiftUI
 
 struct iOSMainView: View {
+    
+    @Environment(ProfileViewModel.self) private var profile
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+            MainView()
+                .environment(profile)
+                .tabItem{
+                    Label("Home", systemImage: "house")
+                }
+            Messages()
+                .environment(profile)
+                .tabItem{
+                    Label("Messages", systemImage: "message")
+                }
+            Settings()
+                .tabItem{
+                    Label("Settings", systemImage: "gear")
+                }
+        }
     }
 }
 
