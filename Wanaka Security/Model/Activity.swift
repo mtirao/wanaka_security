@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct Activity: Codable, Element {
-    let id: UUID
+struct Activity: Codable, Identifiable {
+    var id: UUID
     let content: String
     let date: Int
-    let type: String
+    let userId: UUID
     
     enum CodingKeys: String, CodingKey {
         case content = "activityContent"
         case date = "activityDate"
         case id = "activityId"
-        case type = "activityType"
+        case userId = "activityUserId"
     }
 }

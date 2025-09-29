@@ -20,9 +20,10 @@ struct WanakaButton: View {
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding()
-                .frame(width: 200, height: 50)
+                .frame(height: 40)
+                .frame(maxWidth: .infinity)
                 .background(Color.accentColor)
-                .cornerRadius(15.0)
+                .cornerRadius(20.0)
         }
         .buttonStyle(.plain)
     }

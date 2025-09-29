@@ -47,6 +47,22 @@ import SwiftUI
         }
         
         token = jwtToken.accessToken
+        
+        await fetchProfile()
+        
         isNeededAuthentication = false
     }
+    
+    func fetchProfile() async {
+        guard let token = token else {
+            return
+        }
+        isLoading = true
+        defer {
+            isLoading = false
+        }
+        profile = try? await repository.profile(token: token)
+    }
+    
+    
 }

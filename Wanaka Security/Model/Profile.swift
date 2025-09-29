@@ -28,7 +28,7 @@ struct Profile: Codable {
     let lastName: String
     let phone: String
     let userRole: String?
-    let profileId: Int?
+    let profileId: UUID?
     let gender: String
     let address: String
     let city: String

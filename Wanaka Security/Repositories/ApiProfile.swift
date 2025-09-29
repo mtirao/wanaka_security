@@ -17,7 +17,7 @@ import Foundation
 
 enum ApiProfile: Api {
     
-    case fetchProfile(profile: String)
+    case fetchProfile
     case login
     
     var server: String {
@@ -26,8 +26,8 @@ enum ApiProfile: Api {
     
     var path: String {
         switch self {
-        case .fetchProfile(let profile):
-            return "/api/wanaka/profile/\(profile)"
+        case .fetchProfile:
+            return "/api/wanaka/profile/"
         case .login:
             return "/api/wanaka/accounts/login"
         }

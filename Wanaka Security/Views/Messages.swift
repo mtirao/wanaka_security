@@ -34,17 +34,11 @@ struct Messages: View {
         
         Section("Messages", isExpanded: $isMesagesExpanded) {
             ForEach(messageViewModel.messages) { cell in
-                VStack {
-                    HStack {
-                        Text(cell.content)
-                            .font(.headline)
-                        Spacer()
-                    }
-                    HStack {
-                        Text(cell.type)
-                            .font(.caption)
-                        Spacer()
-                    }
+                VStack(alignment: .leading) {
+                    Text(cell.content)
+                        .font(.headline)
+                    Text(cell.type)
+                        .font(.caption)
                 }
             }
         }
@@ -58,11 +52,6 @@ struct Messages: View {
                     HStack {
                         Text(cell.content)
                             .font(.headline)
-                        Spacer()
-                    }
-                    HStack {
-                        Text(cell.type)
-                            .font(.caption)
                         Spacer()
                     }
                 }

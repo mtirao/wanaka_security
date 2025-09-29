@@ -9,14 +9,14 @@ import Foundation
 
 @MainActor
 protocol ProfileRepositoryProtocol {
-    func profile(id: String, token: String?) async throws -> Profile
+    func profile(token: String?) async throws -> Profile
     func login(auth: Authentication) async throws -> JwtToken?
 }
 
 final class ProfileRepositoryMock: ProfileRepositoryProtocol {
-    func profile(id: String, token: String?) async throws -> Profile {
+    func profile(token: String?) async throws -> Profile {
         guard let data = MockRepository().loadJson(fileName: "Profile") else {
-            let profile = Profile(cellPhone: "", email: "", firstName: "Mock", lastName: "Mock", phone: "", userRole: "user", profileId: -1, gender: "male", address: "", city: "")
+            let profile = Profile(cellPhone: "", email: "", firstName: "Mock", lastName: "Mock", phone: "", userRole: "user", profileId: UUID(), gender: "male", address: "", city: "")
             return profile
         }
         
@@ -32,9 +32,9 @@ final class ProfileRepositoryMock: ProfileRepositoryProtocol {
 
 final class ProfileRepository: ProfileRepositoryProtocol {
     
-    func profile(id: String, token: String?) async throws -> Profile {
+    func profile(token: String?) async throws -> Profile {
         let session = URLSession.shared
-        let (data, _) = try await session.data(for: ApiProfile.fetchProfile(profile: id).asUrlRequest(token: token))
+        let (data, _) = try await session.data(for: ApiProfile.fetchProfile.asUrlRequest(token: token))
         let profileResult = try JSONDecoder().decode(Profile.self, from: data)
         return profileResult
     }

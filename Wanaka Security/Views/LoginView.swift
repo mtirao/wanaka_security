@@ -57,12 +57,13 @@ struct LoginView: View {
                 ProgressView()
             }
             
+            
             WanakaButton(title: "Sign In") {
                 Task {
                     let auth = Authentication(username: login, password: password)
                     await profile.login(authentication: auth)
                 }
-            }
+            }.frame(width: 200)
             
             HStack(spacing: 0) {
                 Text("Don't have an account? ")

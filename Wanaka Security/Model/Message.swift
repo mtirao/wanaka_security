@@ -8,14 +8,7 @@
 import Foundation
 
 
-protocol Element: Identifiable {
-    var id: UUID { get }
-    var content: String { get }
-    var date: Int { get }
-    var type: String { get }
-}
-
-struct Message: Codable, Element {
+struct Message: Codable, Identifiable {
     let id: UUID
     let content: String
     let date: Int

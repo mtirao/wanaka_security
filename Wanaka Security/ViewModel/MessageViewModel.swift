@@ -13,6 +13,7 @@ import SwiftUI
     
     var messages: [Message] = []
     var activities: [Activity] = []
+    var systemArmed: Bool = false
     
     private let repository: any MessageRepositoryProtocol
     
@@ -24,11 +25,20 @@ import SwiftUI
         #endif
     }
     
+    
     func fetchMessages(token: String?) async {
         do {
             messages = try await repository.fetchAllMessages(token: token)
         } catch {
             messages = []
+        }
+    }
+    
+    func fetchStatus(token: String?) async {
+        do {
+            systemArmed = try await repository.fetchStatus(token: token)
+        } catch {
+            systemArmed = false
         }
     }
     
@@ -40,4 +50,12 @@ import SwiftUI
         }
     }
     
+    func postActivity(activity: Activity, token: String?) async {
+        do {
+            try await repository.postAction(activity: activity, token: token)
+            systemArmed = try await repository.fetchStatus(token: token)
+        } catch {
+            systemArmed = false
+        }
+    }
 }
