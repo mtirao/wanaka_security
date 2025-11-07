@@ -7,12 +7,18 @@
 
 import Foundation
 
+enum MessageType: String, Codable {
+    case INFO = "INFO"
+    case ERROR = "ERROR"
+    case WARN = "WARN"
+    case ALERT = "ALERT"
+}
 
 struct Message: Codable, Identifiable {
     let id: UUID
     let content: String
     let date: Int
-    let type: String
+    let type: MessageType
     
     enum CodingKeys: String, CodingKey {
         case content = "messageContent"

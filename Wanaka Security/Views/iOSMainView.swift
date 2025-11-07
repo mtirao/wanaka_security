@@ -23,7 +23,14 @@ struct iOSMainView: View {
                 .tabItem{
                     Label("Messages", systemImage: "message")
                 }
-            Settings()
+            User()
+                .environment(profile)
+                .tabItem{
+                    Label("Profile", systemImage: "person.circle.fill")
+                }
+            
+            Config()
+                .environment(profile)
                 .tabItem{
                     Label("Settings", systemImage: "gear")
                 }

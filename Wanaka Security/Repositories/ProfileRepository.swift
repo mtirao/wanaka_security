@@ -47,9 +47,6 @@ final class ProfileRepository: ProfileRepositoryProtocol {
             .data(using: .utf8)!
             .base64EncodedString()
         httRequest.addValue("Basic \(token)", forHTTPHeaderField: "authorization")
-        httRequest.addValue("wanaka-security", forHTTPHeaderField: "x-client-id")
-        httRequest.addValue("ae7a79e3-c2bf-43c3-a339-c27b6ed0cd39", forHTTPHeaderField: "x-client-secret")
-        httRequest.addValue("api-user", forHTTPHeaderField: "x-grant-type")
 
         let (data, _) = try await URLSession.shared.data(for: httRequest)
         

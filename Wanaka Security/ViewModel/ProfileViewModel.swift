@@ -38,9 +38,6 @@ import SwiftUI
     }
     
     func login(authentication: Authentication) async {
-        guard validate(authentication: authentication) else {
-            return
-        }
         guard let jwtToken = try? await repository.login(auth: authentication) else {
             errorText = "Invalid login or password"
             return

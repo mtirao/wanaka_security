@@ -15,7 +15,6 @@ enum ApiMessage: Api {
     
     case fetchAllMessages
     case fetchAllActivities
-    case fetchStatus
     case action(activity: Activity)
     
     var server: String {
@@ -28,8 +27,6 @@ enum ApiMessage: Api {
             return "/api/wanaka/message"
         case .fetchAllActivities:
             return "/api/wanaka/activity"
-        case .fetchStatus:
-            return "/api/wanaka/status"
         case .action:
             return "/api/wanaka/activity"
         }
@@ -40,8 +37,6 @@ enum ApiMessage: Api {
         case .fetchAllMessages:
             return "GET"
         case .fetchAllActivities:
-            return "GET"
-        case .fetchStatus:
             return "GET"
         case .action:
             return "POST"

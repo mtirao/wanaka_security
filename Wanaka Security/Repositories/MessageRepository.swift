@@ -11,7 +11,6 @@ import Foundation
 protocol MessageRepositoryProtocol {
     func fetchAllMessages(token: String?) async throws -> [Message]
     func fetchAllActivity(token: String?) async throws -> [Activity]
-    func fetchStatus(token: String?) async throws -> Bool
     func postAction(activity: Activity, token: String?) async throws
 }
 
@@ -26,10 +25,6 @@ final class MessageRepositoryMock: MessageRepositoryProtocol {
     }
     
     func postAction(activity: Activity, token: String?) async throws {
-    }
-    
-    func fetchStatus(token: String?) async throws -> Bool {
-        return true
     }
 }
 
@@ -59,13 +54,4 @@ final class MessageRepository: MessageRepositoryProtocol {
         
     }
     
-    func fetchStatus(token: String?) async throws -> Bool {
-        let session = URLSession.shared
-        let (_, response) = try await session.data(for: ApiMessage.fetchStatus.asUrlRequest(token: token))
-        
-        if let serverResponse = response as? HTTPURLResponse, serverResponse.statusCode > 299 {
-            return false
-        }
-        return true
-    }
 }

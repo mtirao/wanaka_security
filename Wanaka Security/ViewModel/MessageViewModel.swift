@@ -11,7 +11,7 @@ import SwiftUI
 @MainActor
 @Observable class MessageViewModel {
     
-    var messages: [Message] = []
+    var messages: [MessageModel] = []
     var activities: [Activity] = []
     var systemArmed: Bool = false
     
@@ -28,23 +28,22 @@ import SwiftUI
     
     func fetchMessages(token: String?) async {
         do {
-            messages = try await repository.fetchAllMessages(token: token)
+            let messages = try await repository.fetchAllMessages(token: token)
+            self.messages = messages.map{msg in MessageModel(message: msg)}
         } catch {
             messages = []
         }
     }
     
-    func fetchStatus(token: String?) async {
-        do {
-            systemArmed = try await repository.fetchStatus(token: token)
-        } catch {
-            systemArmed = false
-        }
-    }
     
     func fetchActivities(token: String?) async {
         do {
             activities = try await repository.fetchAllActivity(token: token)
+            if let firstActivity = activities.first, ["STAY", "AWAY", "CUSTOM"].contains(firstActivity.content)  {
+                systemArmed = true
+            } else {
+                systemArmed = false
+            }
         } catch {
             activities = []
         }
@@ -53,7 +52,7 @@ import SwiftUI
     func postActivity(activity: Activity, token: String?) async {
         do {
             try await repository.postAction(activity: activity, token: token)
-            systemArmed = try await repository.fetchStatus(token: token)
+            systemArmed = true
         } catch {
             systemArmed = false
         }

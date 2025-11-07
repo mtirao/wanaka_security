@@ -8,15 +8,13 @@
 import Foundation
 
 struct Activity: Codable, Identifiable {
-    var id: UUID
+    var id: UUID?
     let content: String
-    let date: Int
-    let userId: UUID
+    let date: Int?
     
     enum CodingKeys: String, CodingKey {
         case content = "activityContent"
         case date = "activityDate"
         case id = "activityId"
-        case userId = "activityUserId"
     }
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Settings: View {
+struct User: View {
     @Environment(ProfileViewModel.self) private var profile
     
     
@@ -60,5 +60,5 @@ struct Settings: View {
 }
 
 #Preview {
-    Settings()
+    User()
 }

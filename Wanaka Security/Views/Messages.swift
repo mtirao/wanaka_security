@@ -19,7 +19,6 @@ struct Messages: View {
     var body: some View {
         List {
             MessagesCells()
-            ActivitiesCells()
         }.listStyle(.grouped)
         .task {
             await messageViewModel.fetchMessages(token: profile.token)
@@ -33,26 +32,19 @@ struct Messages: View {
     func MessagesCells() -> some View {
         
         Section("Messages", isExpanded: $isMesagesExpanded) {
-            ForEach(messageViewModel.messages) { cell in
-                VStack(alignment: .leading) {
-                    Text(cell.content)
-                        .font(.headline)
-                    Text(cell.type)
-                        .font(.caption)
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    func ActivitiesCells() -> some View {
-        Section("Activities", isExpanded: $isActivitiesExpanded) {
-            ForEach(messageViewModel.activities) { cell in
-                VStack {
+            List {
+                ForEach(messageViewModel.messages) { cell in
                     HStack {
+                        Image(systemName: "info.circle.fill")
+                            .renderingMode(.template)
+                            .resizable()
+                            .tint(cell.color)
+                            .foregroundStyle(cell.color)
+                            .frame(width:20, height: 20)
                         Text(cell.content)
-                            .font(.headline)
-                        Spacer()
+                            .font(.caption)
+                            .foregroundStyle(Color.black)
+                            
                     }
                 }
             }

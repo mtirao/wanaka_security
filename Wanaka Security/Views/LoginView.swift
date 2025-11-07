@@ -26,11 +26,6 @@ struct LoginView: View {
             VStack(alignment: .leading, spacing: 15) {
                 TextField("Email", text: $login)
                     .focused($isLoginFocused)
-                
-                    .onChange(of: isLoginFocused) {value, newValue in
-                        let auth = Authentication(username:login, password: password)
-                        profile.validate(authentication: auth)
-                    }
                     #if os(macOS)
                     .textFieldStyle(.plain)
                     #endif
@@ -72,6 +67,8 @@ struct LoginView: View {
                         .foregroundColor(.black)
                 }
             }
+        }.onAppear {
+            isLoginFocused = true
         }
     }
 }
