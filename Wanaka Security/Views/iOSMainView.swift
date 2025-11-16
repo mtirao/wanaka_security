@@ -29,7 +29,7 @@ struct iOSMainView: View {
                     Label("Profile", systemImage: "person.circle.fill")
                 }
             
-            Config()
+            ZoneView()
                 .environment(profile)
                 .tabItem{
                     Label("Settings", systemImage: "gear")

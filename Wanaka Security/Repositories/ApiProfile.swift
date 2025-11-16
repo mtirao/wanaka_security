@@ -45,9 +45,9 @@ enum ApiProfile: Api {
     var body: Data? {
         switch self {
         case .login:
-            return nil as Data?
+            return nil
         default:
-            return nil as Data?
+            return nil
         }
     }
 }

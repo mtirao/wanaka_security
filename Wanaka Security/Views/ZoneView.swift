@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Zone: View {
+struct ZoneView: View {
     
     @Environment(ProfileViewModel.self) private var profile
     
@@ -16,23 +16,52 @@ struct Zone: View {
     @State private var router = ZoneViewRouter()
     
     var body: some View {
-        List {
-            ForEach(zoneViewModel.zones) { zone in
-                Text(zone.name)
-                    .font(.headline)
-                    .foregroundStyle(Color.black)
+        NavigationStack(path: $router.path) {
+            List {
+                ForEach(zoneViewModel.zones) { zone in
+                    NavigationLink(destination: zoneView(id: zone.id)) {
+                        Text(zone.name)
+                            .font(.headline)
+                            .foregroundStyle(Color.black)
+                    }
+                }
             }
-        }.listStyle(.plain)
-        .background(RoundedRectangle(cornerRadius: 10)
-            .fill(Color.white)
-        )
-        .task {
-            await zoneViewModel.fetchZones(token: profile.token)
+            .navigationTitle("Zones")
+            .navigationBarTitleDisplayMode(.large)
+            .navigationDestination(for: Route.self) { route in router.view(for: route) }
+            .listStyle(.plain)
+            .background(RoundedRectangle(cornerRadius: 10)
+                .fill(Color.white)
+            )
+            .task {
+                await zoneViewModel.fetchZones(token: profile.token)
+            }
         }
+    }
+    
+    @ViewBuilder
+    func zoneView(id: UUID) -> some View {
+        VStack {
+            HStack {
+                Text("Status")
+                Spacer()
+                Text("Active")
+            }.font(.headline)
+            HStack {
+                Text("Type")
+                Spacer()
+                Text("DOOR")
+            }
+            HStack {
+                Text("Location")
+                Spacer()
+                Text("Bedrrom")
+            }
+        }.padding(16)
     }
     
 }
 
 #Preview {
-    Config()
+    ZoneView()
 }
